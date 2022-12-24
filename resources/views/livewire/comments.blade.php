@@ -33,11 +33,10 @@
             <div class="card-body">
                 <p class="card-text">{{ $comment['message'] }}</p>
             </div>
-        </div>
+        </div>        
     @endforeach
-
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus quia provident molestias ad architecto error enim, unde accusantium laboriosam placeat quos ipsum! Cum perspiciatis corrupti officia, voluptate ipsam nobis inventore!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus quia provident molestias ad architecto error enim, unde accusantium laboriosam placeat quos ipsum! Cum perspiciatis corrupti officia, voluptate ipsam nobis inventore!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus quia provident molestias ad architecto error enim, unde accusantium laboriosam placeat quos ipsum! Cum perspiciatis corrupti officia, voluptate ipsam nobis inventore!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus quia provident molestias ad architecto error enim, unde accusantium laboriosam placeat quos ipsum! Cum perspiciatis corrupti officia, voluptate ipsam nobis inventore!
+    <div class="car">
+        <div class="card-header">{{ $comments->links('pagination-links') }}</div>
+        {{-- <div class="card-header">{{ $comments->links() }}</div> --}}
+    </div>
 </div>
