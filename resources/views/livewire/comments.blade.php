@@ -17,9 +17,12 @@
             {{-- <textarea wire:model.debounce.500ms="message" class="form-control" rows="2" placeholder="Write your comment..."></textarea> --}}
             {{-- stop call ajax --}}
             {{-- <textarea wire:model.lazy="message" class="form-control" rows="2" placeholder="Write your comment..."></textarea> --}}
+            
+            <input type="file" id="image" class="form-control mb-1" wire:change="$emit('fileChoosen')">
             <textarea wire:model="message" class="form-control" rows="2" placeholder="Write your comment..."></textarea>
             {{-- <button class="btn btn-primary float-end mt-2" wire:click="newComment">Submit</button> --}}
             <button type="submit" class="btn btn-primary float-end mt-2" >Submit</button>
+            <img src="{{ ($image)? $image:""}}" alt="">
         </form>
     </div>
     <br> 
@@ -32,6 +35,9 @@
             </div>
             <div class="card-body">
                 <p class="card-text">{{ $comment['message'] }}</p>
+                @if($comment->image)
+                    <img src="{{ $comment->ImagePath }}" alt="">
+                @endif
             </div>
         </div>        
     @endforeach
@@ -40,3 +46,16 @@
         {{-- <div class="card-header">{{ $comments->links() }}</div> --}}
     </div>
 </div>
+
+<script>
+        Livewire.on('fileChoosen', () => {
+            let inputFile = document.getElementById('image');
+            let file = inputFile.files[0];
+            let reader = new FileReader();
+            reader.onloadend = ()=>{
+                Livewire.emit('imageUpload',reader.result);
+                // console.log(reader.result);
+            }
+            reader.readAsDataURL(file);
+        });
+</script>
