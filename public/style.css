@@ -1,7 +1,15 @@
 .question-bg:hover{
     background: #f1f1f1;
 }
-
 .question-bg-active{
     background-color: #dddbdb;
+}
+.nav-bg{
+    background-color: darkblue;
+}
+.active{
+    color: white;
+}
+.register-bg,.login-bg{
+    background-color: rgb(13 110 253 / 24%);
 }

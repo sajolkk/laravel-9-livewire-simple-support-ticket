@@ -11,6 +11,7 @@
     @livewireScripts
 </head>
 <body>
+    <a href="/home">Home</a>
     <div class="container mt-5">
         <div class="row">
             <div class="col-lg-5 col-md-5 offset-lg-1 ">

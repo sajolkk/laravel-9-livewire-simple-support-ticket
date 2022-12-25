@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Comment;
 use Illuminate\Contracts\Cache\Store;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -38,7 +39,7 @@ class Comments extends Component
         $newComment = Comment::create([
             'message' => $this->message, 
             'image' => $image,
-            'user_id' => 1,
+            'user_id' => Auth::user()->id,
             'support_ticket_id' => $this->ticketId,
         ]);
         $this->message = '';
