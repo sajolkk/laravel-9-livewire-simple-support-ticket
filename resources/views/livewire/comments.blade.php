@@ -1,4 +1,4 @@
-<div class="col-md-6 offset-3">
+<div class="border rounded shadow p-2">
     <div class="card">
         <div class="card-header">
             New Comment
@@ -12,18 +12,14 @@
             @endif
         </div>
         <form class="card-body" wire:submit.prevent="newComment">
-            {{-- <textarea wire:model="message" class="form-control" rows="2" placeholder="Write your comment..."></textarea> --}}
-            {{-- after 500ms call ajax --}}
-            {{-- <textarea wire:model.debounce.500ms="message" class="form-control" rows="2" placeholder="Write your comment..."></textarea> --}}
-            {{-- stop call ajax --}}
-            {{-- <textarea wire:model.lazy="message" class="form-control" rows="2" placeholder="Write your comment..."></textarea> --}}
+            <input type="file" id="image" class="form-control mb-2" wire:change="$emit('fileChoosen')">
             <textarea wire:model="message" class="form-control" rows="2" placeholder="Write your comment..."></textarea>
-            {{-- <button class="btn btn-primary float-end mt-2" wire:click="newComment">Submit</button> --}}
             <button type="submit" class="btn btn-primary float-end mt-2" >Submit</button>
+            <img src="{{ ($image)? $image:""}}" alt="" class="img-fluid">
         </form>
     </div>
     <br> 
-    @foreach ($comments as $comment)
+    @forelse ($comments as $comment)
         <div class="card mb-1">
             <div class="card-header">
             {{ $comment->user->name }}
@@ -32,11 +28,30 @@
             </div>
             <div class="card-body">
                 <p class="card-text">{{ $comment['message'] }}</p>
+                @if($comment->image)
+                    <img src="{{ $comment->ImagePath }}" alt="" class="img-fluid rounded border" >
+                @endif
             </div>
-        </div>        
-    @endforeach
-    <div class="car">
+        </div>  
+    @empty 
+        <div class="card">
+            <div class="card-body text-center">
+                <p>Comment not found!!</p>
+            </div>
+        </div>      
+    @endforelse
+    <div class="card">
         <div class="card-header">{{ $comments->links('pagination-links') }}</div>
-        {{-- <div class="card-header">{{ $comments->links() }}</div> --}}
     </div>
 </div>
+<script>
+        Livewire.on('fileChoosen', () => {
+            let inputFile = document.getElementById('image');
+            let file = inputFile.files[0];
+            let reader = new FileReader();
+            reader.onloadend = ()=>{
+                Livewire.emit('imageUpload',reader.result);
+            }
+            reader.readAsDataURL(file);
+        });
+</script>

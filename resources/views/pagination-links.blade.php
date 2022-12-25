@@ -3,11 +3,11 @@
         <nav role="navigation" aria-label="Pagination Navigation" class="flex justify-between">
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
-                <button class="btn btn-secondary shadow">
+                <button class="btn btn-secondary btn-sm shadow">
                     {!! __('pagination.previous') !!}
                 </button>
             @else
-                <button wire:click="previousPage" wire:loading.attr="disabled" rel="prev" class="btn btn-primary shadow">
+                <button wire:click="previousPage" wire:loading.attr="disabled" rel="prev" class="btn btn-sm btn-primary shadow">
                     {!! __('pagination.previous') !!}
                 </button>
             @endif         
@@ -39,11 +39,11 @@
             
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
-                <button wire:click="nextPage" wire:loading.attr="disabled" rel="next" class="btn btn-primary shadow">
+                <button wire:click="nextPage" wire:loading.attr="disabled" rel="next" class="btn btn-sm btn-primary shadow">
                     {!! __('pagination.next') !!}
                 </button>
             @else
-                <button class="btn btn-secondary shadow">
+                <button class="btn btn-secondary btn-sm shadow">
                     {!! __('pagination.next') !!}
                 </button>
             @endif
