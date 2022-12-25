@@ -12,12 +12,15 @@ use Image;
 class Comments extends Component
 {
     use WithPagination;
-    public $message, $image;
-    protected $listeners = ['imageUpload' => 'imageAssing'];
+    public $message, $image,$ticketId;
+    protected $listeners = [
+        'imageUpload' => 'imageAssing',
+        'ticketSelected',
+    ];
     // render function
     public function render()
     {
-        $data['comments'] = Comment::latest()->paginate(2);
+        $data['comments'] = Comment::where('support_ticket_id',$this->ticketId)->latest()->paginate(2);
         return view('livewire.comments',$data);
     }
 
@@ -35,20 +38,13 @@ class Comments extends Component
         $newComment = Comment::create([
             'message' => $this->message, 
             'image' => $image,
-            'user_id' => 1
+            'user_id' => 1,
+            'support_ticket_id' => $this->ticketId,
         ]);
-        // $this->comments->prepend($newComment);
         $this->message = '';
         $this->image = '';
         session()->flash('message', 'Comment added successfully');
     }
-
-    // mount function call on load time
-    // public function mount()
-    // {
-    //     $initialComment = Comment::latest()->get();
-    //     $this->comments = $initialComment;
-    // }
 
     // comment remove from list
     public function delete($id)
@@ -76,5 +72,11 @@ class Comments extends Component
         $name = time().'.jpg';
         Storage::disk('public')->put($name,$img);
         return $name;
+    }
+
+    // selected tickedt id assinged listner function
+    public function ticketSelected($id)
+    {
+        $this->ticketId = $id;
     }
 }

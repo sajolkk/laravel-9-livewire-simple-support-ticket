@@ -9,4 +9,8 @@ class SupportTicket extends Model
 {
     use HasFactory;
     protected $fillable = ['questions'];
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
